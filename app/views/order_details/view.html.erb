@@ -1,0 +1,81 @@
+<style>
+.left-pan ul{margin-left: 0px;
+    padding-left: 0px;}
+.left-pan ul li{    
+list-style: none;
+border-bottom: 1px solid #cbcbcb;
+padding: 10px 0px;
+}	  
+	
+</style>
+<section class="about-us">
+  		<div class="container">
+  			<div class="row">
+  				<% if(notice) %><div id="notice" class="alert alert-warning"><%= notice %></div><% end %>
+				
+  				<div class="col-md-12 col-sm-12">
+  					<div class="right-pan">
+						
+						<div class="row">
+							<div class="col-md-8">
+								<h4>Order Details</h4>
+							</div>
+							<div class="col-md-4" >
+								<a href="javascript:void()" onclick="history.back();" class="btn btn-border" style="float:right"> Back </a>
+								<a href="/order_details/edit/<%= @ordr.id %>" class="btn btn-border" style="float:right;margin-right:10px;"> Edit </a>
+								<% if (current_user.role_id==4)%>
+									<a href="/order_details/view/<%= @ordr.id %>.csv" class="btn btn-border" style="float:right;margin-right:10px;"> Download CSV</a>
+								<% end %>	
+								
+							</div>
+							
+						</div>
+						
+						<div class="row">
+							<div class="col-lg-12"><hr></div>
+							<div class="col-lg-12">
+							<table class="table table-bordered table-striped table-condensed">
+							  <thead>
+							  <tr>
+								<th style="text-align:center">Product</th>
+								<th style="text-align:center">Product Name</th>
+								<th style="text-align:center">Serial</th>
+								<th style="text-align:center">Make</th>
+								<th style="text-align:center">Price</th>
+								<th style="text-align:center">Quantity</th>
+								<!--<th>Action</th>-->
+							  </tr>
+							  </thead>
+							  
+							<tbody>	
+							<% if(!@orders.blank?) %>	
+								<% @orders.each do |order| %>
+								  <tr>
+									<td><%= image_tag order.product.image.url(:small) %></td>
+									<td><%= order.product.title %></td>
+									<td><%= order.product.serial %></td>
+									<td><%= order.product.make %></td>
+									<td>$<%= number_with_precision(order.price, :precision => 2) %></td>
+									<td><%= order.quantity %></td>
+									<!--<td><a href="/order_details/orderdetailsdelete/<%= order.id %>" onclick="return confirm('Are you sure?')" >Delete</a></td>-->
+								  </tr> 
+								<% end %>
+								<tr>
+									<td colspan="4" style="text-align:right">Total</td>
+									<td>$<%= number_with_precision(@ordr.total_price, :precision => 2) %></td>
+									<td></td>
+								</tr>
+							<% else %>
+								<tr><td colspan="6" style="text-align:center"><b>No Items found</b></td></tr>
+							<% end %>
+							<tbody>
+							</table>
+							</div>
+						</div>
+						
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  	</section>
+

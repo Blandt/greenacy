@@ -1,0 +1,89 @@
+<div class="page-heading">
+            <h3>
+                Company Detail
+            </h3>
+            
+			<p id="notice"><%= notice %></p>
+</div>
+<%= @product %>
+<div class="wrapper">
+        <div class="row">
+			<div class="col-sm-12">
+				<section class="panel">
+					<header class="panel-heading">
+						Details
+					</header>
+					<div class="panel-body">
+<p>
+  <strong>Name:</strong>
+  <%= @company.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @company.description %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @company.email %>
+</p>
+
+<p>
+  <strong>Contact Number:</strong>
+  <%= @company.contact_number %>
+</p>
+
+<p>
+  <strong>Street Address:</strong>
+  <%= @company.address %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @company.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @company.state %>
+</p>
+
+<p>
+  <strong>Zip Code:</strong>
+  <%= @company.zip_code %>
+</p>
+
+<p>
+  <strong>Value Troy Pt:</strong>
+  <%= @company.value_troy_pt %>
+</p>
+
+<p>
+  <strong>Value Troy Pd:</strong>
+  <%= @company.value_troy_pd %>
+</p>
+
+<p>
+  <strong>Value Troy Rh:</strong>
+  <%= @company.value_troy_rh %>
+</p>
+
+<p>
+  <strong>Stainless Steel Price:</strong>
+  <%= @company.stainless_steel_price %>
+</p>
+
+<p>
+  <strong>Is active:</strong>
+  <%= @company.is_active %>
+</p>
+
+<%= link_to 'Edit', edit_admin_company_path(@company), :class=>'btn btn-primary' %>
+<%= link_to 'Back', admin_companies_path, :class=>'btn btn-primary' %>
+					</div>
+				</section>
+			</div>
+		</div>
+</div>
+

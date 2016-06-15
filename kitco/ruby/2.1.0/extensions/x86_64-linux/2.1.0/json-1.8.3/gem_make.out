@@ -1,0 +1,14 @@
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/json-1.8.3/ext/json
+/usr/bin/ruby2.1 -r ./siteconf20160413-3663-7rselk.rb extconf.rb
+creating Makefile
+
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/json-1.8.3/ext/json
+make "DESTDIR=" clean
+
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/json-1.8.3/ext/json
+make "DESTDIR="
+make: Nothing to be done for 'all'.
+
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/json-1.8.3/ext/json
+make "DESTDIR=" install
+installing default libraries

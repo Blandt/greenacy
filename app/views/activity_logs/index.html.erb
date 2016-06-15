@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Activity Logs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+	  <th>Parent User</th>
+      <th>Browser</th>
+      <th>Ip address</th>
+      <th>Controller</th>
+      <th>Action</th>
+      <th>Params</th>
+      <th>Note</th>
+      <th>Is read</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @activity_logs.each do |activity_log| %>
+      <tr>
+        <td><%= activity_log.user_id %></td>
+		<td><%= activity_log.parent_user_id %></td>
+        <td><%= activity_log.browser %></td>
+        <td><%= activity_log.ip_address %></td>
+        <td><%= activity_log.controller %></td>
+        <td><%= activity_log.action %></td>
+        <td><%= activity_log.params %></td>
+        <td><%= activity_log.note %></td>
+        <td><%= activity_log.is_read %></td>
+        <td><%= link_to 'Show', activity_log %></td>
+        <td><%= link_to 'Edit', edit_activity_log_path(activity_log) %></td>
+        <td><%= link_to 'Destroy', activity_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
+
+
+<br>
+
+<%= link_to 'New Activity log', new_activity_log_path %>

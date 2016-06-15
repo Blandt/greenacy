@@ -1,0 +1,24 @@
+<html>
+<nav class="navbar navbar-default" role="navigation">
+  		<div class="container">
+  			<div class="navbar-header">
+	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+	          <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js (do a quick Google search for it and you'll find it) -->
+	          <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="" /></a>
+	        </div>
+	        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          		<ul class="nav navbar-nav navbar-right top-navbar">
+          			<li><a href="">Home</a></li>
+          			<li><a href="">About us</a></li>
+          			<li><a href="">How it Works</a></li>
+          			<li><a href="" data-target="#myModal" data-toggle="modal">login</a></li>
+          			<li class="signup"><a href="" data-target="#myModal2" data-toggle="modal">Signup</a></li>
+          		</ul>
+  			</div>
+  		</div>
+  	</nav>

@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Company:</strong>
+  <%= @order.company_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @order.user_id %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @order.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @order.end_date %>
+</p>
+
+<p>
+  <strong>Total price:</strong>
+  <%= @order.total_price %>
+</p>
+
+<p>
+  <strong>Total quantity</strong>
+  <%= @order.quantity %>
+</p>
+
+<p>
+  <strong>View order:</strong>
+  <%= @order.view_order_id %>
+</p>
+
+<p>
+  <strong>Is closed:</strong>
+  <%= @order.is_closed %>
+</p>
+
+<p>
+  <strong>Is active:</strong>
+  <%= @order.is_active %>
+</p>
+
+<p>
+  <strong>Is delete:</strong>
+  <%= @order.is_delete %>
+</p>
+<p>
+  <strong>Is Archive</strong>
+  <%= @order.is_archive_manager %>
+</p>
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

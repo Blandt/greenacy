@@ -1,0 +1,896 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: admins; Type: TABLE; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE TABLE admins (
+    id integer NOT NULL,
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip inet,
+    last_sign_in_ip inet,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.admins OWNER TO greenacy;
+
+--
+-- Name: admins_id_seq; Type: SEQUENCE; Schema: public; Owner: greenacy
+--
+
+CREATE SEQUENCE admins_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.admins_id_seq OWNER TO greenacy;
+
+--
+-- Name: admins_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: greenacy
+--
+
+ALTER SEQUENCE admins_id_seq OWNED BY admins.id;
+
+
+--
+-- Name: categories; Type: TABLE; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE TABLE categories (
+    id integer NOT NULL,
+    category_id integer,
+    name character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    is_active boolean
+);
+
+
+ALTER TABLE public.categories OWNER TO greenacy;
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: greenacy
+--
+
+CREATE SEQUENCE categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.categories_id_seq OWNER TO greenacy;
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: greenacy
+--
+
+ALTER SEQUENCE categories_id_seq OWNED BY categories.id;
+
+
+--
+-- Name: companies; Type: TABLE; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE TABLE companies (
+    id integer NOT NULL,
+    name character varying,
+    description text,
+    is_active boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    value_troy_pt character varying,
+    value_troy_pd character varying,
+    value_troy_rh character varying,
+    city character varying,
+    state character varying,
+    zip_code character varying,
+    country character varying,
+    stainless_steel_price character varying,
+    email character varying,
+    contact_number character varying,
+    address character varying
+);
+
+
+ALTER TABLE public.companies OWNER TO greenacy;
+
+--
+-- Name: companies_id_seq; Type: SEQUENCE; Schema: public; Owner: greenacy
+--
+
+CREATE SEQUENCE companies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.companies_id_seq OWNER TO greenacy;
+
+--
+-- Name: companies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: greenacy
+--
+
+ALTER SEQUENCE companies_id_seq OWNED BY companies.id;
+
+
+--
+-- Name: order_details; Type: TABLE; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE TABLE order_details (
+    id integer NOT NULL,
+    order_id integer,
+    product_id integer,
+    price character varying,
+    date date,
+    quantity integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.order_details OWNER TO greenacy;
+
+--
+-- Name: order_details_id_seq; Type: SEQUENCE; Schema: public; Owner: greenacy
+--
+
+CREATE SEQUENCE order_details_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.order_details_id_seq OWNER TO greenacy;
+
+--
+-- Name: order_details_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: greenacy
+--
+
+ALTER SEQUENCE order_details_id_seq OWNED BY order_details.id;
+
+
+--
+-- Name: orders; Type: TABLE; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE TABLE orders (
+    id integer NOT NULL,
+    company_id integer,
+    user_id integer,
+    start_date date,
+    end_date date,
+    total_price character varying,
+    view_order_id character varying,
+    is_closed boolean,
+    is_active boolean,
+    is_delete boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    quantity integer
+);
+
+
+ALTER TABLE public.orders OWNER TO greenacy;
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: greenacy
+--
+
+CREATE SEQUENCE orders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.orders_id_seq OWNER TO greenacy;
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: greenacy
+--
+
+ALTER SEQUENCE orders_id_seq OWNED BY orders.id;
+
+
+--
+-- Name: posts; Type: TABLE; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE TABLE posts (
+    id integer NOT NULL,
+    name character varying,
+    title character varying,
+    content text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.posts OWNER TO greenacy;
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE; Schema: public; Owner: greenacy
+--
+
+CREATE SEQUENCE posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.posts_id_seq OWNER TO greenacy;
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: greenacy
+--
+
+ALTER SEQUENCE posts_id_seq OWNED BY posts.id;
+
+
+--
+-- Name: products; Type: TABLE; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE TABLE products (
+    id integer NOT NULL,
+    title character varying,
+    description text,
+    serial character varying,
+    weight character varying,
+    pt_weight character varying,
+    pd_weight character varying,
+    rh_weight character varying,
+    stainless character varying,
+    moisture character varying,
+    category_id integer,
+    category character varying,
+    make character varying,
+    model character varying,
+    image_url character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    image character varying,
+    is_active boolean,
+    image_file_name character varying,
+    image_content_type character varying,
+    image_file_size integer,
+    image_updated_at timestamp without time zone,
+    assay_mat character varying,
+    value_troy character varying,
+    stainless_steel_price character varying,
+    stainless_steel character varying,
+    value_troy_pt character varying,
+    value_troy_pd character varying,
+    value_troy_rh character varying
+);
+
+
+ALTER TABLE public.products OWNER TO greenacy;
+
+--
+-- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: greenacy
+--
+
+CREATE SEQUENCE products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.products_id_seq OWNER TO greenacy;
+
+--
+-- Name: products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: greenacy
+--
+
+ALTER SEQUENCE products_id_seq OWNED BY products.id;
+
+
+--
+-- Name: roles; Type: TABLE; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE TABLE roles (
+    id integer NOT NULL,
+    name character varying,
+    is_active boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.roles OWNER TO greenacy;
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: greenacy
+--
+
+CREATE SEQUENCE roles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.roles_id_seq OWNER TO greenacy;
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: greenacy
+--
+
+ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE TABLE schema_migrations (
+    version character varying NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO greenacy;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    first_name character varying,
+    last_name character varying,
+    email character varying,
+    password_hash character varying,
+    password_salt character varying,
+    username character varying,
+    is_admin boolean,
+    is_active boolean,
+    date date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip inet,
+    last_sign_in_ip inet,
+    role_id integer,
+    company_id integer,
+    parent_id integer,
+    value_troy_rh character varying,
+    value_troy_pd character varying,
+    value_troy_pt character varying,
+    assay_mat character varying
+);
+
+
+ALTER TABLE public.users OWNER TO greenacy;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: greenacy
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO greenacy;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: greenacy
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: greenacy
+--
+
+ALTER TABLE ONLY admins ALTER COLUMN id SET DEFAULT nextval('admins_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: greenacy
+--
+
+ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: greenacy
+--
+
+ALTER TABLE ONLY companies ALTER COLUMN id SET DEFAULT nextval('companies_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: greenacy
+--
+
+ALTER TABLE ONLY order_details ALTER COLUMN id SET DEFAULT nextval('order_details_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: greenacy
+--
+
+ALTER TABLE ONLY orders ALTER COLUMN id SET DEFAULT nextval('orders_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: greenacy
+--
+
+ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: greenacy
+--
+
+ALTER TABLE ONLY products ALTER COLUMN id SET DEFAULT nextval('products_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: greenacy
+--
+
+ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: greenacy
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Data for Name: admins; Type: TABLE DATA; Schema: public; Owner: greenacy
+--
+
+COPY admins (id, email, encrypted_password, reset_password_token, reset_password_sent_at, remember_created_at, sign_in_count, current_sign_in_at, last_sign_in_at, current_sign_in_ip, last_sign_in_ip, created_at, updated_at) FROM stdin;
+1	nits.abhishek85@gmail.com	$2a$10$LLfwPYc6ffWQSZF3PlT6cO4FVJ.iKg6HHIW4HZZ1D.4s2plMnGlPW	f553fb3d9d9abdc234fa22b3ef2d16df0a4d7820bfa57f152826ca7c7b25159c	2016-03-02 13:35:13.621766	\N	14	2016-03-16 08:22:29.671378	2016-03-16 06:15:59.115316	182.73.184.114	182.73.184.114	2016-03-01 14:40:03.110767	2016-03-16 08:22:29.67305
+2	nits.sandeeptewary@gmail.com	$2a$10$4i97s4uH9RvOJPpG7ekS5O55Js0sPkCgpEAwyjgGCrbgbobMPz8hi	\N	\N	\N	57	2016-05-04 15:21:58.931382	2016-05-04 12:10:07.038197	98.235.165.71	122.160.187.85	2016-03-02 13:40:50.049511	2016-05-04 15:21:58.93298
+\.
+
+
+--
+-- Name: admins_id_seq; Type: SEQUENCE SET; Schema: public; Owner: greenacy
+--
+
+SELECT pg_catalog.setval('admins_id_seq', 2, true);
+
+
+--
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: greenacy
+--
+
+COPY categories (id, category_id, name, created_at, updated_at, is_active) FROM stdin;
+12	\N	Cat3	2016-03-10 06:56:31.846718	2016-03-15 09:56:38.017514	t
+10	\N	Cat2	2016-03-09 12:46:21.336577	2016-03-15 09:56:50.7663	t
+9	\N	Cat1	2016-03-09 12:32:57.818302	2016-05-04 14:58:26.759695	t
+\.
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: greenacy
+--
+
+SELECT pg_catalog.setval('categories_id_seq', 14, true);
+
+
+--
+-- Data for Name: companies; Type: TABLE DATA; Schema: public; Owner: greenacy
+--
+
+COPY companies (id, name, description, is_active, created_at, updated_at, value_troy_pt, value_troy_pd, value_troy_rh, city, state, zip_code, country, stainless_steel_price, email, contact_number, address) FROM stdin;
+3	Company QWE	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.	t	2016-04-04 09:24:55.474858	2016-05-02 14:53:26.744578	1079	617	735	Kolkata	WB	98754	India	452.00	nits.qwe@gmail.com	9876543214	\N
+2	Company XYZ	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.	t	2016-03-31 07:25:01.159605	2016-05-04 12:11:12.230914	950.00	550.00	320.00	Kolkata	WB	78965	India	230.00	nits.abc@gmail.com	9876543210	Bl-40T/6, Unit-C, Salt Lake,
+1	Company Abc	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.	t	2016-03-31 07:22:26.542005	2016-04-18 10:34:08.152611	981.00	536.00	646.00	Kolkata	WB	78945	India	251.00	nits.abc@gmail.com	9876543211	\N
+10	Company TEST	\N	t	2016-05-02 12:58:25.071321	2016-05-02 12:58:25.071321	\N	\N	\N	Kolkata	WB	700022	India	\N	comp@test.com	7896543210	\N
+12	ABC PVT Ltd		t	2016-05-04 12:16:13.503364	2016-05-04 12:17:03.345034	1047.25	590.25	645.22	city1	Alaska	60518		245.00	nits.abhishek85@gmail.com	987654123	Address1 12
+13	XYZ PVT Ltd	\N	f	2016-05-04 12:18:57.031833	2016-05-04 12:18:57.031833	\N	\N	\N	city1	Alaska	60518	\N	\N	nits.abhishek85@gmail.com	2687945130	\N
+14	XYZ PVT Ltd	\N	f	2016-05-04 12:21:19.765442	2016-05-04 12:21:19.765442	\N	\N	\N	city1	Alaska	60518	\N	\N	nits.abhishek85@gmail.com	2134567890	Bl-40T/6, Unit-C, Salt Lake,
+15	Nits	dsfsdf	f	2016-05-04 13:08:08.908135	2016-05-04 13:11:49.369035	1047.25	590.25	645.22	Kolkata	West Bengal	6051	\N	245.00	nits.abhishek85@gmail.com	1234567890	GC-211,
+11	Greenacy LLC		t	2016-05-02 14:41:53.663962	2016-05-04 15:22:32.071495				PA Furnace	PA	16865	USA		ben@meddeb.me	8144416552	
+\.
+
+
+--
+-- Name: companies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: greenacy
+--
+
+SELECT pg_catalog.setval('companies_id_seq', 15, true);
+
+
+--
+-- Data for Name: order_details; Type: TABLE DATA; Schema: public; Owner: greenacy
+--
+
+COPY order_details (id, order_id, product_id, price, date, quantity, created_at, updated_at) FROM stdin;
+1	13	8	309.71	2016-04-20	1	2016-04-20 13:56:44.073637	2016-04-20 13:56:44.073637
+2	13	9	1570.24	2016-04-20	1	2016-04-20 14:02:56.841046	2016-04-20 14:02:56.841046
+3	13	9	1570.24	2016-04-21	1	2016-04-21 08:11:51.184456	2016-04-21 08:11:51.184456
+4	13	9	1570.24	2016-04-21	1	2016-04-21 08:12:56.198336	2016-04-21 08:12:56.198336
+5	13	9	1570.24	2016-04-21	1	2016-04-21 08:13:26.127917	2016-04-21 08:13:26.127917
+7	18	8	309.71	2016-04-21	1	2016-04-21 08:27:49.168672	2016-04-21 08:27:49.168672
+8	19	9	3140.48	2016-04-28	2	2016-04-28 13:13:41.435495	2016-04-28 13:13:41.435495
+9	19	8	309.71	2016-04-28	1	2016-04-28 13:20:02.984987	2016-04-28 13:20:02.984987
+10	19	9	1570.24	2016-04-28	1	2016-04-28 13:23:18.161204	2016-04-28 13:23:18.161204
+11	19	7	309.71	2016-04-28	1	2016-04-28 13:23:48.541287	2016-04-28 13:23:48.541287
+12	21	8	929.1299999999999	2016-04-28	3	2016-04-28 14:26:35.099332	2016-04-28 14:26:35.099332
+13	21	7	619.42	2016-04-28	2	2016-04-28 14:27:42.477904	2016-04-28 14:27:42.477904
+14	23	8	309.71	2016-04-29	1	2016-04-29 14:20:03.606753	2016-04-29 14:20:03.606753
+15	23	6	309.71	2016-04-29	1	2016-04-29 14:20:41.153724	2016-04-29 14:20:41.153724
+16	25	9	3140.48	2016-05-02	2	2016-05-02 13:17:54.921956	2016-05-02 13:17:54.921956
+17	25	9	3140.48	2016-05-02	2	2016-05-02 13:22:29.361902	2016-05-02 13:22:29.361902
+18	25	8	309.71	2016-05-02	1	2016-05-02 13:22:45.747895	2016-05-02 13:22:45.747895
+19	26	8	556.92	2016-05-02	1	2016-05-02 14:41:59.880533	2016-05-02 14:41:59.880533
+20	26	7	556.92	2016-05-02	1	2016-05-02 14:42:05.495741	2016-05-02 14:42:05.495741
+21	28	11	137.54	2016-05-04	2	2016-05-04 11:06:53.30422	2016-05-04 11:06:53.30422
+22	28	9	1570.24	2016-05-04	1	2016-05-04 11:14:12.492656	2016-05-04 11:14:12.492656
+23	31	10	47.65	2016-05-04	1	2016-05-04 15:16:58.866965	2016-05-04 15:16:58.866965
+24	31	9	2827.0	2016-05-04	1	2016-05-04 15:17:07.825711	2016-05-04 15:17:07.825711
+\.
+
+
+--
+-- Name: order_details_id_seq; Type: SEQUENCE SET; Schema: public; Owner: greenacy
+--
+
+SELECT pg_catalog.setval('order_details_id_seq', 24, true);
+
+
+--
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: greenacy
+--
+
+COPY orders (id, company_id, user_id, start_date, end_date, total_price, view_order_id, is_closed, is_active, is_delete, created_at, updated_at, quantity) FROM stdin;
+21	2	17	2016-04-28	\N	1548.5499999999997	ORD000021	t	t	f	2016-04-28 14:26:27.508297	2016-04-28 14:28:25.282622	5
+23	2	13	2016-04-29	\N	619.42	ORD000023	t	t	f	2016-04-29 14:19:58.662986	2016-04-29 14:20:44.777349	2
+26	11	11	2016-05-02	\N	1113.84	ORD000026	t	t	f	2016-05-02 14:41:53.754176	2016-05-02 14:42:09.268694	2
+25	10	13	2016-05-02	\N	6590.67	ORD000025	t	t	f	2016-05-02 12:58:25.913402	2016-05-03 12:09:18.492824	5
+28	2	13	2016-05-04	\N	1707.78	ORD000028	t	t	f	2016-05-04 11:06:30.873622	2016-05-04 12:18:06.141982	3
+30	14	13	2016-05-04	\N	0	ORD000030	f	t	f	2016-05-04 12:21:20.545422	2016-05-04 12:21:20.548539	0
+31	11	11	2016-05-04	\N	2874.65	ORD000031	f	t	f	2016-05-04 15:16:34.374973	2016-05-04 15:17:07.830018	2
+18	2	13	2016-04-21	2016-04-28	309.71000000000004	ORD000018	t	t	f	2016-04-21 08:20:03.550305	2016-04-28 09:51:53.834225	1
+19	2	13	2016-04-28	\N	5330.14	ORD000019	t	t	f	2016-04-28 12:53:30.120211	2016-04-28 13:34:36.43913	5
+\.
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: greenacy
+--
+
+SELECT pg_catalog.setval('orders_id_seq', 31, true);
+
+
+--
+-- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: greenacy
+--
+
+COPY posts (id, name, title, content, created_at, updated_at) FROM stdin;
+1	About-us	About Us	About Us content coming soon.	2016-03-01 07:08:35.522637	2016-03-15 12:13:05.905935
+2	Terms	Terms of Use	Terms of use content coming Soon...	2016-03-15 11:36:53.105705	2016-03-15 12:15:12.10896
+3	How-it-works	How it works	How it works content coming soon.\r\n\r\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n	2016-03-15 12:12:29.190851	2016-03-15 13:11:55.294992
+\.
+
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: greenacy
+--
+
+SELECT pg_catalog.setval('posts_id_seq', 3, true);
+
+
+--
+-- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: greenacy
+--
+
+COPY products (id, title, description, serial, weight, pt_weight, pd_weight, rh_weight, stainless, moisture, category_id, category, make, model, image_url, created_at, updated_at, image, is_active, image_file_name, image_content_type, image_file_size, image_updated_at, assay_mat, value_troy, stainless_steel_price, stainless_steel, value_troy_pt, value_troy_pd, value_troy_rh) FROM stdin;
+9	Title 5	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.	YF1C CA ELKWE34	1.0251	0.00521	0.00361	0.000251	\N	0.67001	12	\N	Make1234561	Model456789	\N	2016-03-30 07:27:41.961834	2016-03-30 07:36:39.845989	\N	t	General-Motors-Titanium-Rod-Engine.jpg	image/jpeg	147450	2016-03-30 07:27:41.679326	92	\N	23.33	6.2520	2.62	1.50	4.68
+2	Title	sdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdfsdf bsf sfsdf sdfsd fsdfsdf	ELK	1.025	0.0052	0.0036	0.00025	0.0000	0.6700	9	\N	Make123456	Model456789	\N	2016-03-10 11:20:18.483811	2016-04-01 12:30:43.234347	\N	t	auto-parts1.jpg	image/jpeg	180921	2016-03-15 13:19:18.920872	92	\N	23.00	1.23	\N	\N	\N
+6	Title 1	sdas sd asd asdas dsada sdasd s	YF1CELK3	1.0251	0.00521	0.00361	0.000251	0.0000	0.67001	9	\N	Make1234561	Model4567891	\N	2016-03-10 14:01:41.962052	2016-04-01 12:31:31.141098	\N	t	4.jpg	image/jpeg	17453	2016-03-15 13:18:04.387686	92	\N	23.00	1.23	\N	\N	\N
+8	Title 5	Title description 5. Title description 5. Title description 5. Title description 5. Title description 5. Title description 5. Title description 5. Title description 5. Title description 5. Title description 5. \r\n\r\nTitle description 5. Title description 5. Title description 5. Title description 5. Title description 5. 	YF1C	1.0251	0.00521	0.0036	0.00025	0.0000	0.67001	10	\N	Make1234561	Model456789	\N	2016-03-11 12:26:20.637325	2016-04-01 12:32:08.270348	\N	t	20110304010838.jpg	image/jpeg	192993	2016-03-15 13:18:26.4516	92	\N	23.00	1.23	\N	\N	\N
+7	Title 2	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, 	EBC	1.025	0.00521	0.00361	0.00025	0.0000	0.67001	12	\N	Make1234561	Model4567891	\N	2016-03-11 08:28:28.421523	2016-04-01 12:32:37.304598	\N	t	auto1.jpg	image/jpeg	479293	2016-03-15 13:18:54.614102	92	\N	23.00	1.23	\N	\N	\N
+11			23260 U014 CF7	2.508	0.0015	0.3074	0.0611	\N	0.65	9	\N			\N	2016-05-02 14:52:01.574229	2016-05-02 14:52:01.574229	\N	t	23260_U014_CF7.jpg	image/jpeg	39064	2016-05-02 14:52:01.385637	\N	\N	\N	0.0	\N	\N	\N
+10	GM		12577914 3414F7	1.7165	0.0838	0.1703	0.0174	\N	0.65	9	\N			\N	2016-05-02 14:45:22.463233	2016-05-04 14:52:32.249552	\N	t	12577914_3414F7.jpg	image/jpeg	37101	2016-05-02 14:45:22.230491	\N	\N	\N		\N	\N	\N
+\.
+
+
+--
+-- Name: products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: greenacy
+--
+
+SELECT pg_catalog.setval('products_id_seq', 11, true);
+
+
+--
+-- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: greenacy
+--
+
+COPY roles (id, name, is_active, created_at, updated_at) FROM stdin;
+4	Company Manager	t	2016-03-15 14:03:12.541892	2016-03-31 08:23:12.532485
+1	User	t	2016-03-15 13:52:13.693347	2016-04-05 10:17:50.053224
+\.
+
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: greenacy
+--
+
+SELECT pg_catalog.setval('roles_id_seq', 4, true);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: greenacy
+--
+
+COPY schema_migrations (version) FROM stdin;
+20160301064028
+20160301093923
+20160301094206
+20160301143318
+20160307154515
+20160309072705
+20160309074128
+20160309095533
+20160310073853
+20160310124229
+20160310124307
+20160310124452
+20160315132040
+20160315141331
+20160330064602
+20160330064827
+20160330065122
+20160330065144
+20160330071926
+20160330071949
+20160330072027
+20160331070741
+20160331083103
+20160331083146
+20160401104732
+20160401105154
+20160401105212
+20160404064453
+20160404064543
+20160404064606
+20160404064652
+20160404064907
+20160404064935
+20160404065004
+20160404065052
+20160404071902
+20160404072025
+20160404073946
+20160404075854
+20160404080427
+20160404094324
+20160418074348
+20160418081253
+20160418082306
+20160418095222
+20160418095452
+20160418112030
+20160420115229
+20160421064836
+20160504113856
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: greenacy
+--
+
+COPY users (id, first_name, last_name, email, password_hash, password_salt, username, is_admin, is_active, date, created_at, updated_at, encrypted_password, reset_password_token, reset_password_sent_at, remember_created_at, sign_in_count, current_sign_in_at, last_sign_in_at, current_sign_in_ip, last_sign_in_ip, role_id, company_id, parent_id, value_troy_rh, value_troy_pd, value_troy_pt, assay_mat) FROM stdin;
+13	Anup	Chak	nits.anup@gmail.com	\N	\N	anup	\N	t	\N	2016-03-31 09:57:01.616322	2016-05-04 10:11:44.53594	$2a$10$LE1W.JZsZdfp9UQfjXvBXejKJTHz.N7Ccy3r3jalNFvKU4ePVx/ri	\N	\N	\N	38	2016-05-04 10:11:44.533978	2016-05-04 07:32:04.429119	122.160.187.85	182.73.184.114	4	1	\N	380.00	565.00	972.00	92
+10	Abhishek	Kundu	nits.abhishek85@gmail.com	\N	\N	abhi85	\N	t	\N	2016-03-16 06:17:31.847413	2016-05-04 15:12:04.24497	$2a$10$7W/2jY9dqS0gK.4hMolLLu/JtpEkvdbAL6EbVWji7vt/xPFVfrmyi	\N	\N	\N	16	2016-03-30 06:19:00.191655	2016-03-17 05:20:06.430633	122.160.187.85	122.160.187.85	1	1	13	320.00	565.00	970.00	92
+11	Ben	Meddeb	ben@meddeb.me	\N	\N	blandt	\N	t	\N	2016-03-17 13:41:26.417679	2016-05-04 15:16:22.883221	$2a$10$X3NHP0MWOu0zw0W3RyQRUegmi58EgoetRWiMFFCzHlbiKY9RGnryq	\N	\N	\N	6	2016-05-04 15:16:22.881135	2016-05-02 14:39:50.242362	98.235.165.71	98.235.165.71	4	3	\N	320.00	565.00	972.00	92
+19	Ashis	Das	nits.ashis@gmail.com	\N	\N	ashis	\N	t	\N	2016-04-05 13:08:24.934367	2016-04-05 13:08:24.934367	$2a$10$eObZsQltTJanmQBf/0gQq.tvm.FxjS/LLEDtwJZzxVNEyXF0eqa7i	\N	\N	\N	0	\N	\N	\N	\N	1	1	13	\N	\N	\N	96
+14	hari	ram	nits.harishankar@gmail.com	\N	\N	hari	\N	t	\N	2016-04-01 07:51:41.74053	2016-04-05 13:45:43.706697	$2a$10$nPTyC6/ZBjydI3V2uthFOe3DanBkh2NbYI8Zr0C3ClipYdbcZwMuy	\N	\N	\N	1	2016-04-05 13:45:43.70514	2016-04-05 13:45:43.70514	122.160.187.85	122.160.187.85	4	2	\N	380.00	564.00	975.00	92
+20	Soutik	Bose	nits.kallol@gmail.com	\N	\N	sou	\N	t	\N	2016-04-05 13:48:14.020933	2016-04-05 13:48:14.020933	$2a$10$.XfWU.Wdbn4gDO/xdD4rgu4csx.Hof1SO3gc5pgJ8WHwnrFSIeECm	\N	\N	\N	0	\N	\N	\N	\N	1	2	14	\N	\N	\N	90
+17	Soutik	Bose	nits.soutik@gmail.com	\N	\N	soutik	\N	t	\N	2016-04-05 11:15:59.163722	2016-04-28 14:26:05.345461	$2a$10$FHTANgPMcQoaefSmsAgv0eHaDnJ3OxW7m8IP2RmTLCCUwjXTyVV5u	\N	\N	\N	6	2016-04-28 14:26:05.343692	2016-04-28 13:45:42.822646	122.160.187.85	122.160.187.85	1	1	13	\N	\N	\N	92
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: greenacy
+--
+
+SELECT pg_catalog.setval('users_id_seq', 20, true);
+
+
+--
+-- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+ALTER TABLE ONLY admins
+    ADD CONSTRAINT admins_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: categories_pkey; Type: CONSTRAINT; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+ALTER TABLE ONLY categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: companies_pkey; Type: CONSTRAINT; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+ALTER TABLE ONLY companies
+    ADD CONSTRAINT companies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: order_details_pkey; Type: CONSTRAINT; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+ALTER TABLE ONLY order_details
+    ADD CONSTRAINT order_details_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts_pkey; Type: CONSTRAINT; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+ALTER TABLE ONLY posts
+    ADD CONSTRAINT posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: products_pkey; Type: CONSTRAINT; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+ALTER TABLE ONLY roles
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_admins_on_email; Type: INDEX; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_admins_on_email ON admins USING btree (email);
+
+
+--
+-- Name: index_admins_on_reset_password_token; Type: INDEX; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_admins_on_reset_password_token ON admins USING btree (reset_password_token);
+
+
+--
+-- Name: index_companies_on_contact_number; Type: INDEX; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_companies_on_contact_number ON companies USING btree (contact_number);
+
+
+--
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
+
+
+--
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: greenacy; Tablespace: 
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

@@ -1,0 +1,20 @@
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/bcrypt-3.1.10/ext/mri
+/usr/bin/ruby2.1 -r ./siteconf20160413-3663-p53p9x.rb extconf.rb
+creating Makefile
+
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/bcrypt-3.1.10/ext/mri
+make "DESTDIR=" clean
+
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/bcrypt-3.1.10/ext/mri
+make "DESTDIR="
+compiling crypt_gensalt.c
+compiling crypt_blowfish.c
+compiling wrapper.c
+compiling bcrypt_ext.c
+compiling crypt.c
+linking shared-object bcrypt_ext.so
+
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/bcrypt-3.1.10/ext/mri
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bcrypt_ext.so ./.gem.20160413-3663-2nl0e
+installing default bcrypt_ext libraries

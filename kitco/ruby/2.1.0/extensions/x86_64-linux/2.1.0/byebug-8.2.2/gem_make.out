@@ -1,0 +1,20 @@
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/byebug-8.2.2/ext/byebug
+/usr/bin/ruby2.1 -r ./siteconf20160413-3663-753k8l.rb extconf.rb
+creating Makefile
+
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/byebug-8.2.2/ext/byebug
+make "DESTDIR=" clean
+
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/byebug-8.2.2/ext/byebug
+make "DESTDIR="
+compiling threads.c
+compiling breakpoint.c
+compiling byebug.c
+compiling locker.c
+compiling context.c
+linking shared-object byebug/byebug.so
+
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/byebug-8.2.2/ext/byebug
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 byebug.so ./.gem.20160413-3663-7ej6cz/byebug
+installing default byebug libraries

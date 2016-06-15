@@ -1,0 +1,83 @@
+<div  id="" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        
+	        <h4 class="modal-title" id="myModalLabel">SIGN UP  </h4>
+	      </div>
+	      <div class="modal-body">
+	        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+			<% if(devise_error_messages! ) %><div id="notice" class="alert alert-warning"><%= devise_error_messages! %></div><% end %>
+			<input  type="hidden" name="user[is_admin]" id="user_is_admin" value="false">
+			<input type="hidden" name="user[is_active]" id="user_is_active" value="true">
+			<input type="hidden" name="user[role_id]" id="user_role_id" value="5">
+			<input type="hidden" name="user[company_id]" id="user_company_id" value="0">
+			<input type="hidden" name="user[parent_id]" id="user_parent_id" value="0">
+				<div class="form-group">
+	        		<input class="form-control" type="text" name="user[first_name]" required="required" id="user_first_name" placeholder="First Name">
+	        	</div>
+				<div class="form-group">
+	        		<input class="form-control" type="text" name="user[last_name]" required="required" id="user_last_name" placeholder="Last Name">
+	        	</div>
+				<div class="form-group">
+	        		<input class="form-control" type="text" name="user[contact_number]" required="required" id="user_contact_number" placeholder="Contact Number">
+	        	</div>
+				<div class="form-group">
+	        		<input class="form-control" type="text" name="user[company_name]" required="required" id="user_company_name" placeholder="Company Name">
+	        	</div>
+				<div class="form-group">
+	        		<input class="form-control" type="email" name="user[email]" required="required" id="user_email" placeholder="Enter Your Email">
+	        	</div>
+	        	<div class="form-group">
+	        		<input class="form-control" type="password" name="user[password]" required="required" id="user_password" placeholder="Enter Your Password">
+	        	</div>
+				<div class="form-group">
+	        		<input class="form-control" type="password" required="required" name="user[password_confirmation]" id="user_password_confirmation" placeholder="Password confirmation">
+	        	</div>
+	        	<div class="form-group">
+	        		<input type="submit" value="Sign Up" class="btn btn-primary btn-block" />
+					
+	        	</div>
+	        	<!--<p class="text-right"><a href="">Or Forgot Password ?</a></p>-->
+	        <% end %>
+	      </div>
+	      <div class="modal-footer">
+	        <!--<p class="text-center">Don't have an account? <a href="">Sign up</a></p>-->
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+<!--
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "users/shared/links" %>
+-->

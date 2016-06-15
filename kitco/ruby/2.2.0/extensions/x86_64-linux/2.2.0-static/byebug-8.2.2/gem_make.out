@@ -1,0 +1,15 @@
+/home/greenacy/.rbenv/versions/2.2.3/bin/ruby -r ./siteconf20160330-29689-6i7sul.rb extconf.rb
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling threads.c
+compiling breakpoint.c
+compiling byebug.c
+compiling locker.c
+compiling context.c
+linking shared-object byebug/byebug.so
+
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 byebug.so ./.gem.20160330-29689-100jkh5/byebug

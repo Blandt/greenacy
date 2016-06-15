@@ -1,0 +1,43 @@
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js (do a quick Google search for it and you'll find it) -->
+          <a class="navbar-brand" href="/"><%= image_tag "logo.png" %></a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+  		<ul class="nav navbar-nav navbar-right top-navbar">
+  			<li><a href="/">Home</a></li>
+  			<li><a href="/posts/About-us">About us</a></li>
+  			<li><a href="/products/">Products</a></li>
+			
+			<% if current_user %>
+				<% if (current_user.role_id && current_user.role_id==4)%>
+					<li> <%= link_to "Manage", users_manage_path, :method => :get %></li>
+				<% end %>
+				<% if(current_user.role_id && current_user.role_id!=5)%>
+				<li><a href="/orders" >View Order</a></li>
+				<% end %>
+				<% if(current_user.role_id && current_user.role_id!=5)%>
+					<% if (!@isOrder && @isOrder.blank?)%>
+						<li><a href="" data-target="#myOrder" data-toggle="modal">Start Order</a></li>
+					<% else %>
+						<li><a href="/orders/orderclose/<%= @isOrder.id %>" >Close Order</a></li>
+					<% end %>
+				<% end %>
+				<li><%= link_to "Log out", destroy_user_session_path, :method => :delete %> </li>
+			<% else %>
+				<li><a href="" data-target="#myModal" data-toggle="modal">Login</a></li>
+				<li><a href="/users/sign_up" >Sign Up</a></li>
+			<% end %>
+  			
+  			<!--<li class="signup"><a href="" data-target="#myModal2" data-toggle="modal">Signup</a></li>-->
+  		</ul>
+		</div>
+	</div>
+</nav>

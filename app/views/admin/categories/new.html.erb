@@ -1,0 +1,49 @@
+<div class="page-heading">
+            <h3>
+               New Category
+            </h3>
+			<% @category.errors.full_messages.each do |msg| %>
+			    <li class="error msg"><%= msg %></li>
+		    <% end %>
+</div>
+
+<div class="wrapper">
+        <div class="row">
+			<div class="col-sm-12">
+				<section class="panel">
+					<header class="panel-heading">
+						New Category
+					</header>
+					<div class="panel-body">
+
+<%= form_for(@category, :url => '/admin/categories/') do |f| %>
+<input type="hidden" name="category[company_id]" id="category_company_id" value="0">
+    <div class="field">
+	<label for="category_is_active"></label><br>
+	<select name="category[is_active]" required id="category_is_active" >
+		<option value="1">Active</option>
+		<option value="0">Inactive</option>
+	</select>
+	</div>
+	
+	<div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+    </div>
+	
+	<div class="field">
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+    </div>
+	
+	<!--<div class="field">
+    <%= f.label :is_active %><br />
+    <%= f.check_box :is_active %>
+    </div>-->
+    <!--<%= f.select :category_id, options_from_collection_for_select(Category.all, :id, :name, @category.category_id), :include_blank => true %>-->
+
+    <%= f.submit %>
+	<%= link_to 'Back', admin_categories_path, :class=>'btn btn-primary' %>
+<% end %>
+
+

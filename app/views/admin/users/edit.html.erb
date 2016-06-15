@@ -1,0 +1,166 @@
+<script>
+function setManager(){
+	var role = $('#user_role_id').val();
+	var company = $('#user_company_id').val();
+	if(role==1)
+	{
+		$('#managerDiv').show();
+		if(company!='' && company!=null)
+		{
+			$.ajax({
+				url: "/admin/users/getManager/",
+				type: 'POST',
+				beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+				data: {'company':company},
+				success: function(res)
+				{
+				  if(res)
+				  {
+				   console.log(res);
+					   $("select#user_parent_id option").remove();
+						//put in a empty default line
+						var row = "<option value=\"" + "" + "\">" + "Select Manager" + "</option>";
+						$(row).appendTo("select#user_parent_id");                        
+						// Fill sub category select
+						$.each(res, function(i, j){
+							row = "<option value=\"" + j.id + "\">" + j.first_name + " " + j.last_name + "</option>";  
+							$(row).appendTo("select#user_parent_id");                    
+						}); 
+				  }
+				  else
+				  {
+				   alert(res);
+				  }
+				}
+		   });
+		}else{
+			$("select#user_parent_id option").remove();
+                var row = "<option value=\"" + "" + "\">" + "Select Company first" + "</option>";
+                $(row).appendTo("select#user_parent_id");
+		}
+	}
+	else{
+		$('#managerDiv').hide();
+	}
+
+}
+</script>
+<div class="page-heading">
+            <h3>
+               Editing Users
+            </h3>
+			<% @user.errors.full_messages.each do |msg| %>
+			    <li class="error msg"><%= msg %></li>
+		    <% end %>
+</div>
+
+<div class="wrapper">
+        <div class="row">
+			<div class="col-sm-12">
+				<section class="panel">
+					<header class="panel-heading">
+						Edit User
+					</header>
+					<div class="panel-body">
+<%= form_for(@user, :url => admin_user_path, :id => @user.id) do |f| %>
+  <% @user.errors.full_messages.each do |msg| %>
+      <p><%= msg %></p>
+   <% end %>
+  
+	<div class="field">
+	<label for="user_is_active"></label><br>
+	<select name="user[is_active]" required id="user_is_active" >
+	<option value="1" <% if(@user.is_active==true) %>selected="selected"<% end %>>Active</option>
+	<option value="0" <% if(@user.is_active==false) %>selected="selected"<% end %>>Inactive</option>
+	</select>
+	</div>
+
+  <div class="field">
+	<%= f.label :Role %><br />
+	<%= f.collection_select :role_id, Role.all, :id, :name, {},  :onChange=>"javascript: setManager();"%>
+  </div>
+  
+  <div class="field">
+	<label for="user_Company">Company</label><br>
+	<select name="user[company_id]" required id="user_company_id" onchange="setManager();">
+		<option value="">Select Company</option>
+		<% @companies.each do |company| %>
+		<option value="<%= company.id %>" <% if(company.id==@user.company_id) %>selected="selected"<% end %>><%= company.name %></option>
+		<% end %>
+	</select>
+  </div>
+	
+  <% if(@user.role_id==1)%>	
+  <div class="field" id="managerDiv">
+	<label for="user_Company">Company Manager</label><br>
+	<select name="user[parent_id]" id="user_parent_id">
+		<option value="">Select Company Manager</option>
+		<% @managers.each do |manager| %>
+		<option value="<%= manager.id %>" <% if(manager.id==@user.parent_id && @user.parent_id) %>selected="selected"<% end %> ><%= manager.first_name %> <%= manager.last_name %></option>
+		<% end %>
+	</select>
+  </div>
+  <% end %>
+  
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username %> 
+  </div>
+  
+  <div class="field">
+    <%= f.label :contact_number %><br />
+    <%= f.text_field :contact_number %> 
+  </div>
+  
+  <div class="field">
+	<%= f.label :assay_mat %><br />
+	<%= f.text_field :assay_mat %> 
+  </div>
+  
+  <!--<div class="field">
+    <%= f.label :is_active %><br />
+    <%= f.check_box :is_active %>
+  </div>-->
+  
+
+  <div class="actions">
+    <%= f.submit "Update" %> 
+	<%= link_to 'Show', admin_user_path(@user), :class=>'btn btn-primary' %> 
+	<%= link_to 'Back', admin_users_path, :class=>'btn btn-primary' %>
+  </div>
+<% end %>
+
+
+					</div>
+				</section>
+			</div>
+		</div>
+</div>	

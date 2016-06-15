@@ -1,0 +1,74 @@
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="myModalLabel">Product details </h4>
+	  </div>
+	  <div class="modal-body">
+		<section class="prog-list-page">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="item-listing">
+							
+							<li>
+								<div class="row">
+									<div class="col-sm-5">
+										<div class="prod-box">
+											<%= image_tag @product.image.url(:detail) %>
+										</div>
+									</div>
+									<div class="col-sm-7">
+									
+										<div class="prod-desc">
+											<h4><%= @product.title %></h4>
+											<p class="p-desc"><%= @product.description %> </p>
+											<p class="cost">Serial : <%= @product.serial %></p>
+											<p>Category : <%= @product.category.name %></p>
+											<p>Make : <%= @product.make %></p>
+											<p>Model : <%= @product.model %></p>
+											<% if(@userdetail.role.id==1) %>
+												<p>Price : $<%=  number_with_precision(@total_price, :precision => 2) %></p>
+											<% else %>
+												<p>Price : $<%=  number_with_precision(@total_price, :precision => 2) %></p>
+												<p>Platinum: Low: <%= @pt[:low] %> | High: <%= @pt[:high] %> | Bid: <%= @pt[:bid] %></p>
+												<p>Palladium: Low: <%= @pd[:low] %> | High: <%= @pd[:high] %> | Bid: <%= @pd[:bid] %></p>
+												<p>Rhodium: Low: <%= @rh[:low] %> | High: <%= @rh[:high] %> | Bid: <%= @rh[:bid] %></p>
+											<% end %>
+											<p>
+											<% if (!@isOrder && @isOrder.blank?)%>
+											<% else%>	
+												<div class="form-group">
+												<label for="" class="col-sm-2 control-label">Quantity: </label>
+												<div class="col-sm-6">
+												  <input type="number" name="quantity" id="quantity" class="form-control" style="width:120px;" value="1" min="1">
+												</div>
+												<div class="col-sm-6" id="error" style="color:red;"></div>
+											</div>
+												 
+											<% end %>
+											</p>
+											<p>
+											<%= link_to 'BACK', products_path, :class => "btn btn-border" %>
+											<% if (!@isOrder && @isOrder.blank?)%>
+											<% else%>	
+												<a class="btn btn-border" href="javascript:void(0)" onclick="addToCart('<%=  number_with_precision(@total_price, :precision => 2) %>','<%= @product.id %>','<%= @isOrder.id %>')">Add to Order</a>
+											<% end %>	
+											</p>
+										</div>
+									</div>
+								</div>
+							</li>
+							
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+	  </div>
+	  
+	</div>
+</div>
+
+

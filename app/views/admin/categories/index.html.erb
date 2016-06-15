@@ -1,0 +1,48 @@
+<div class="page-heading">
+            <h3>
+                Categories
+            </h3>
+            <ul class="breadcrumb">
+                
+            </ul>
+			<p id="notice"><%= notice %></p>
+</div>
+
+<div class="wrapper">
+        <div class="row">
+			<div class="col-sm-12">
+				<section class="panel">
+					<header class="panel-heading">
+						<%= 'Categories' %>
+					</header>
+					<div class="panel-body">
+						<table class="table table-bordered table-striped table-condensed">
+						  <thead>
+						  <tr>
+							<th>Name</th>
+							<th>Price</th>
+							<th>Is Active</th>
+							<th>Action</th>
+						  </tr>
+						  </thead>
+						  
+						<tbody>	
+						<% @categories.each do |category| %>
+						<tr>
+						  <td><%= link_to category.name, category_path(category) %></td>
+						  <td>$<%= category.price %></td>
+						  <td><%= category.is_active %></td>
+						  
+						  <td><%= link_to 'Edit', edit_admin_category_path(category) %> | <%= link_to 'Destroy', admin_category_path(category), data: { confirm: 'Are you sure?' }, :method => :delete %></td>
+						</tr>
+						<% end %>
+						<tbody>
+						</table>
+
+						<br />
+
+					</div>
+				</section>
+			</div>
+		</div>
+</div>	

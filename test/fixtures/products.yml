@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  serial: MyString
+  weight: MyString
+  pt_weight: MyString
+  pd_weight: MyString
+  rh_weight: MyString
+  stainless: MyString
+  moisture: MyString
+  category_id: 
+  category: MyString
+  make: MyString
+  model: MyString
+  image_url: MyString
+
+two:
+  title: MyString
+  description: MyText
+  serial: MyString
+  weight: MyString
+  pt_weight: MyString
+  pd_weight: MyString
+  rh_weight: MyString
+  stainless: MyString
+  moisture: MyString
+  category_id: 
+  category: MyString
+  make: MyString
+  model: MyString
+  image_url: MyString

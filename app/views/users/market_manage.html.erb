@@ -1,0 +1,89 @@
+<style>
+.left-pan ul{margin-left: 0px;
+    padding-left: 0px;}
+.left-pan ul li{    
+list-style: none;
+border-bottom: 1px solid #eee;
+padding: 10px 0px;
+}	
+	
+</style>
+<section class="about-us">
+  		<div class="container">
+  			<div class="row">
+  				<div class="col-md-3 col-sm-3">
+  					<div class="left-pan" style="border: 1px solid #eee;padding: 10px;">
+  						<ul>
+							<li><a href="/users/manage/">List Of Users</a></li>
+							<li><a href="/users/add/">Add User</a></li>
+							<li><a href="/users/market_manage/">Market Management</a></li>
+						</ul>
+  					</div>
+  				</div>
+  				<div class="col-md-9 col-sm-9">
+  					<div class="right-pan">
+						<div class="row">
+							<div class="col-md-8">
+								<h4>Market Management</h4>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-lg-12"><hr></div>
+							
+							
+
+							<%= form_for(@company, :url => companies_setmarket_path(@company.id), :id => @company.id) do |f| %>
+							<%= f.hidden_field :company_id, :value => @company.id %>
+							<div class="form-group"><label for="" class="col-sm-12 control-label"><strong>Pt Low: </strong><%= @pt[:low] %> | <strong>Pt High: </strong><%= @pt[:high] %> | <strong>Pt Bid: </strong><%= @pt[:bid] %> | <strong>Pt Ask: </strong><%= @pt[:ask] %></label></div>
+							
+							<div class="form-group"><label for="" class="col-sm-12 control-label"><strong>Pd Low: </strong><%= @pd[:low] %> | <strong>Pd High: </strong><%= @pd[:high] %> | <strong>Pd Bid: </strong><%= @pd[:bid] %> | <strong>Pd Ask: </strong><%= @pd[:ask] %></label></div>
+							
+							<div class="form-group">
+								<label for="" class="col-sm-3 control-label">Value Troy Pt</label>
+								<div class="col-sm-9">
+								  <%= f.text_field :value_troy_pt,  class: 'form-control'  %> 
+								</div>
+							</div>
+
+							<p></p>
+							<div class="form-group">
+								<label for="" class="col-sm-3 control-label">Value Troy Pd</label>
+								<div class="col-sm-9">
+								  <%= f.text_field :value_troy_pd,  class: 'form-control'  %> 
+								</div>
+							</div>
+
+							<!--<p><strong>Rh Low: </strong><%= @rh[:low] %> | <strong>Rh High: </strong><%= @rh[:high] %> | <strong>Rh Bid: </strong><%= @rh[:bid] %> | <strong>Rh Ask: </strong><%= @rh[:ask] %></p>-->
+							<div class="form-group">
+								<label for="" class="col-sm-3 control-label">Value Troy Rh</label>
+								<div class="col-sm-9">
+								  <%= f.text_field :value_troy_rh,  class: 'form-control'  %> 
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label for="" class="col-sm-3 control-label">Stainless Steel Price</label>
+								<div class="col-sm-9">
+								  <%= f.text_field :stainless_steel_price,  class: 'form-control'  %>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-9">
+									<input type="submit" class="btn btn-primary" value="Save Changes">
+								</div>
+							</div>
+							
+							<% end %>
+
+							
+							
+						</div>
+						
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  	</section>
+

@@ -1,0 +1,16 @@
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/binding_of_caller-0.7.2/ext/binding_of_caller
+/usr/bin/ruby2.1 -r ./siteconf20160413-3663-15yj23l.rb extconf.rb
+
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/binding_of_caller-0.7.2/ext/binding_of_caller
+make "DESTDIR=" clean
+make: *** No rule to make target 'clean'.  Stop.
+
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/binding_of_caller-0.7.2/ext/binding_of_caller
+make "DESTDIR="
+echo "Nada."
+Nada.
+
+current directory: /home/greenacy/greenacy/kitco/ruby/2.1.0/gems/binding_of_caller-0.7.2/ext/binding_of_caller
+make "DESTDIR=" install
+echo "Nada."
+Nada.

@@ -1,0 +1,154 @@
+<section class="about-us">
+  		<div class="container">
+  			<div class="row">
+  				<!--<div class="col-md-3 col-sm-3">
+  					<div class="left-pan">
+  						<p><img src="/assets/pro-pic.jpg" alt="" class="img-responsive"></p>
+  						<h4>Sandy Brown</h4>
+  						<p>Sed ut perspiciatis unde omnis iste natus</p>
+  					</div>
+  				</div>-->
+  				<div class="col-md-12 col-sm-12">
+  					<div class="right-pan">
+						<div class="row">
+							<div class="col-md-8">
+								<h4>Find Product</h4>
+								 <form id="search-form" accept-charset="UTF-8" name="searchform" id="searchform" >
+								 
+								
+								 <div class="input-group">
+									<!--<input type="text" class="form-control" placeholder="Search for...">-->
+									<%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search by Category or Serial number or Make" %>
+									<span class="input-group-btn">
+										<button id="inputString" class="btn btn-default" type="button" style="font-size:20px; text-shadow: none; color:#b1b1b1; background: none"><i class="fa fa-search"></i></button>
+									</span>
+								</div>
+								</form>
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12"><hr></div>
+							<% @products.each do |product| %>
+							<!--<%= link_to 'Show', products_view_path(product), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#productShow'}   %>-->
+							<!--<a href="/products/<%= product.id %>" onclick="showProd('<%= product.id %>')">-->
+							<a href="javascript:void(0)" onclick="showProd('<%= product.id %>','<%= product.image.url(:original) %>')">
+							<div class="col-md-3 col-sm-3 panel">
+								<div class="prod-box">
+									<div class="prod-image">
+										<%= image_tag product.image.url(:search) %>
+									</div>
+									<p class="serial">Serial : <span><%= product.serial %><span></p>
+									<p class="category">Make : <span><%= product.make %></span></p>
+									<p class="category">Category : <span><%= product.category.name %></span></p>
+								</div>
+							</div>
+							</a>
+							<% end %>
+							
+						</div>
+						
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  	</section>
+
+
+<div class="modal fade" id="productShow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">Product details </h4>
+		  </div>
+		  <div class="modal-body" id="detailsProd">
+		  </div>
+		  
+		</div>
+	</div>
+</div>
+<script>
+function showProd(pid,image){
+	//console.log(image);
+	$.ajax({
+		url: "/products/view/"+pid,
+		type: 'GET',
+		beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		//data: {'pid':pid},
+		success: function(res)
+		{
+			$.ajax({
+					url: "/products/add_activity/",
+					type: 'POST',
+					beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+					data: {'value':'Viewed Product of Serial No: '+res.product.serial},
+					success: function(res)
+					{
+						
+					}
+			   });
+			console.log(res);
+			res.total_price = parseFloat(res.total_price).toFixed(2);
+			<% if (!@orderToAddId && @orderToAddId.blank?)%>
+			$('#detailsProd').html('<div class="prod-desc"><img src="'+image+'" style="width:100%"><h4>'+res.product.title+'</h4><p class="p-desc">'+res.product.description+'</p><p class="cost">Serial : '+res.product.serial+'</p><p>Category : '+res.product.category.name+'</p><p>Make : '+res.product.make+'</p><p>Model : '+res.product.model+'</p><p>Price : $'+res.total_price+'</p><p></p></div>');
+			<% else %>
+			$('#detailsProd').html('<div class="prod-desc"><div class="prod-desc"><img src="'+image+'" style="width:100%"><h4>'+res.product.title+'</h4><p class="p-desc">'+res.product.description+'</p><p class="cost">Serial : '+res.product.serial+'</p><p>Category : '+res.product.category.name+'</p><p>Make : '+res.product.make+'</p><p>Model : '+res.product.model+'</p><p>Price : $'+res.total_price+'</p><p><div class="form-group"><label for="" class="col-sm-2 control-label" style="padding:0 0px;">Quantity: </label><div class="col-sm-6"><input type="number" name="quantity" id="quantity" class="form-control" style="width:120px;" value="1" min="1"></div><div class="col-sm-6" id="error" style="color:red;"></div></div></p><p><a class="btn btn-border" href="javascript:void(0)" onclick="addToCart(\''+res.total_price+'\',\''+ res.product.id +'\',\'<%= @orderToAddId %>\',\''+ res.product.serial +'\')">Add to Order</a></p></div>');	
+			<% end %>	
+$('#productShow').modal('show');			
+			//window.location.href = "/products/";
+		}
+   });
+}
+$( document ).ready(function() {
+		$("#inputString").click(function () {
+		    var filter = $('#search').val();
+		    $(".panel").each(function () {
+						   if ($(this).find('.serial').text().search(new RegExp(filter, "i")) < 0 && $(this).find('.category').text().search(new RegExp(filter, "i")) < 0) {
+							  $(this).closest('.panel').hide();
+							  
+						   } else {
+							  $(this).closest('.panel').show();
+							  
+						   }
+						});
+			$.ajax({
+					url: "/products/add_activity/",
+					type: 'POST',
+					beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+					data: {'value':'Searched product by '+filter},
+					success: function(res)
+					{
+						
+					}
+			   });
+		});
+});
+$("#search-form").submit(function(event) {
+
+    event.preventDefault(); 
+	$('#inputString').trigger('click');
+   
+});
+  
+function addToCart(price,pid,oid,vpid){
+	var quantity = $('#quantity').val();
+	if(quantity == 0 || quantity == null || quantity==undefined)
+	{
+		$('#error').html('Please enter the quantity.');
+	}
+	else{
+		$.ajax({
+			url: "/order_details/addToCart/",
+			type: 'POST',
+			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+			data: {'price':price,'pid':pid,'oid':oid,'quantity':quantity,'vpid':vpid},
+			success: function(res)
+			{
+				console.log(res);
+				window.location.href = "/products/addtoorder/"+oid;
+			}
+	   });
+	}
+}
+</script>

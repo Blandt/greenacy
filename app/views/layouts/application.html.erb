@@ -1,0 +1,325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Greenacy</title>
+
+    <!-- Bootstrap -->
+ 
+<%= stylesheet_link_tag 'bootstrap' %>
+<%= stylesheet_link_tag 'bootstrap-theme' %>
+<%= stylesheet_link_tag 'font-awesome.min' %>
+<%= stylesheet_link_tag 'jquery.bxslider' %>
+    
+  <%= javascript_include_tag "jquery.min" %> 
+  <%= yield(:head) %>
+  <%= csrf_meta_tag %>
+</head>
+  <body>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">SIGN IN to your account </h4>
+	      </div>
+	      <div class="modal-body">
+	        <%= form_for(resource, as: resource_name, url: session_path(resource_name),:html => {class: 'form-signin'}) do |f| %>
+	        	<div class="form-group">
+	        		<!--<input type="email" placeholder="Enter Your Email Id"  />-->
+					<input class="form-control" type="email" name="user[email]" id="user_email">
+	        	</div>
+	        	<div class="form-group">
+	        		<!--<input type="password" placeholder="Enter Your Password" class="form-control" />-->
+					<input class="form-control" type="password" name="user[password]" id="user_password">
+	        	</div>
+	        	<div class="form-group">
+	        		<input type="submit" value="Login" class="btn btn-primary btn-block" />
+					
+	        	</div>
+	        	<!--<p class="text-right"><a href="">Or Forgot Password ?</a></p>-->
+	        <% end %>
+	      </div>
+	      <div class="modal-footer">
+	       <!-- <p class="text-center">Don't have an account? <a href="">Sign up</a></p>-->
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-----------------Order Modal-------------------->
+	<div class="modal fade" id="myOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Start Order </h4>
+	      </div>
+	      <div class="modal-body">
+		    
+	        
+	        	<div class="form-group">
+					<label>Company Phone Number</label>
+	        		<input class="form-control" type="number" name="company[contact_number]" id="contact_number" required>
+	        	</div>
+	        	
+	        	<div class="form-group">
+	        		<input type="button" value="Continue" id="btnContinue" class="btn btn-primary btn-block" />
+				</div>
+				
+				<div id="newCompany" style="display:none;margin: 0 auto;text-align: center;">
+					<h2>Please provide Company Details</h2>
+					<span id="spanError" style="color:red;font-weight:bold;"></span>
+					<div class="form-group">
+						<!--<label>Company Name</label>-->
+						<input class="form-control" type="text" name="company[name]" id="company_name" required placeholder="Company's name">
+					</div>
+					<div class="form-group">
+						<!--<label>Company Email</label>-->
+						<input class="form-control" type="text" name="company[email]" id="company_email" required placeholder="Company's email">
+					</div>
+					<div class="form-group">
+						<!--<label>City</label>-->
+						<input class="form-control" type="text" name="company[address]" id="company_address" required placeholder="Street Address">
+					</div>
+					<div class="form-group">
+						<!--<label>City</label>-->
+						<input class="form-control" type="text" name="company[city]" id="company_city" required placeholder="City">
+					</div>
+					<div class="form-group">
+						<!--<label>State</label>-->
+						<input class="form-control" type="text" name="company[state]" id="company_state" required placeholder="State">
+					</div>
+					
+					<div class="form-group">
+						<!--<label>Zip Code</label>-->
+						<input class="form-control" type="text" name="company[zip_code]" id="company_zip_code" required placeholder="Zip Code">
+					</div>
+					
+					<div class="form-group">
+						<input type="button" value="Start Order" id="startOrderNewCompany" class="btn btn-primary btn-block" onclick="startOrderNewCompany()" />
+						<input type="button" value="Cancel" id="btnCancel" class="btn btn-primary btn-block" onclick="cancelStart()" />
+					</div>
+					
+					
+				</div>
+				
+				<div id="exsitCompany" style="display:none;margin: 0 auto;text-align: center;">
+					<h2>Company Details</h2>
+					<div id="dataCompany"></div>
+				</div>
+	        	
+	        
+	      </div>
+	      <div class="modal-footer">
+	       <!-- <p class="text-center">Don't have an account? <a href="">Sign up</a></p>-->
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">SIGN UP to your account </h4>
+	      </div>
+	      <div class="modal-body">
+	        <%= form_for(resource, as: resource_name, url: session_path(resource_name),:html => {class: 'form-signin'}) do |f| %>
+	        	<div class="form-group">
+	        		<input type="text" placeholder="Enter your Name" class="form-control" />
+	        	</div>
+	        	<div class="form-group">
+	        		<input type="email" placeholder="Enter Your Email Id" class="form-control" />
+	        	</div>
+	        	<div class="form-group">
+	        		<input type="password" placeholder="Enter Your Password" class="form-control" />
+	        	</div>
+	        	<div class="form-group">
+	        		<input type="password" placeholder="Confirm Password" class="form-control" />
+	        	</div>
+	        	<div class="form-group">
+	        		<input type="submit" value="Register" class="btn btn-primary btn-block" />
+	        	</div>
+	        	<p class="text-right"><a href="">Or Forgot Password ?</a></p>
+	        <% end %>
+	      </div>
+	      <div class="modal-footer">
+	        <p class="text-center">Already have an account? <a href="">Sign in</a></p>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+  
+  	<%= render :partial => 'layouts/header' %>
+	
+  	<%= yield %>
+	
+
+	<%= render :partial => 'layouts/footer' %>
+	
+ <script>
+	setTimeout(function(){$('.alert').hide('slow')},10000);
+ </script>
+ 
+<%= javascript_include_tag "bootstrap.min" %>  	
+<%= javascript_include_tag "jquery.bxslider" %>  
+    <!--<script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.bxslider.js"></script>-->
+ 
+    <script>
+		$(document).ready(function(){
+			$('.bxslider').bxSlider({
+			  auto: true,
+			  autoControls: false
+			});
+		});
+    </script>
+  <script>
+
+  function cancelStart(){
+	$('#contact_number').val('');
+	$('#btnContinue').show();
+	$('#exsitCompany').hide();
+	$('#newCompany').hide();
+  }
+  $(document).ready(function(){
+	$("#btnContinue").click(function(){
+		console.log('btnContinue');
+		$(this).button('loading');
+		$('#exsitCompany').hide();
+		$('#newCompany').hide();
+		var contact_number = $('#contact_number').val();
+		if(contact_number!='' && contact_number!=null)
+		{
+			$.ajax({
+				url: "/companies/checkCompany/",
+				type: 'POST',
+				beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+				data: {'contact_number':contact_number},
+				success: function(res)
+				{
+				  if(jQuery.isEmptyObject(res))
+				  {
+				   console.log('No');
+					$('#newCompany').show();
+					$('#btnContinue').button('reset');
+					$('#btnContinue').hide();
+				  }
+				  else
+				  {
+				   console.log(res);
+				   $('#exsitCompany').show();
+				   $('#dataCompany').html('<input type="hidden" name="company_id_for_order" id="company_id_for_order" value="'+res[0].id+'"><div class="form-group"><label><b>Company Name:</b> '+res[0].name+'</label></div><div class="form-group"><label><b>Email:</b> '+res[0].email+'</label></div><div class="form-group"><label><b>Address:</b> '+res[0].address+', '+res[0].city+', '+res[0].state+', '+res[0].zip_code+'</label></div><div class="form-group"><input type="button" value="Start Order" id="btnstartOrderExistCompany" class="btn btn-primary btn-block" onclick="startOrderExistCompany()" /><input type="button" value="Cancel" id="btnCancel" class="btn btn-primary btn-block" onclick="cancelStart()" /></div>');
+				   $('#btnContinue').button('reset');
+				   $('#btnContinue').hide();
+				  }
+				}
+		   });
+		}else{
+			$('#btnContinue').button('reset');
+			//error Enter Contact Number
+		}
+	});   
+});
+
+function startOrderExistCompany(){
+	var company_id = $('#company_id_for_order').val();
+	console.log(company_id);
+	//$(this).button('btnstartOrderExistCompany');
+	$.ajax({
+		url: "/orders/startOrderExistCompany/",
+		type: 'POST',
+		beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		data: {'company_id':company_id},
+		success: function(res)
+		{
+			console.log(res);
+			window.location.href = "/products/";
+		}
+   });
+}
+
+function startOrderNewCompany(){
+	//var company_id = $('#company_id_for_order').val();
+	$('#spanError').html('');
+	var check = 1;
+	var name = $('#company_name').val();
+	var email = $('#company_email').val();
+	var city = $('#company_city').val();
+	var state = $('#company_state').val();
+	var address = $('#company_address').val();
+	var zip_code = $('#company_zip_code').val();
+	var contact_number = $('#contact_number').val(); 
+	if(name=='' || name=='undefined')
+	{
+		check = 0;
+	}
+	if(email=='' || email=='undefined')
+	{
+		check = 0;
+	}
+	if(city=='' || city=='undefined')
+	{
+		check = 0;
+	}
+	if(state=='' || state=='undefined')
+	{
+		check = 0;
+	}
+	if(address=='' || address=='undefined')
+	{
+		check = 0;
+	}
+	if(zip_code=='' || zip_code=='undefined')
+	{
+		check = 0;
+	}
+	if(contact_number=='' || contact_number=='undefined' || contact_number==0)
+	{
+		check = 0;
+	}
+	
+	
+	if(check)
+	{
+		//$(this).button('btnstartOrderExistCompany');
+		$.ajax({
+			url: "/companies/startOrderNewCompany/",
+			type: 'POST',
+			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+			data: {'name':name,'email':email,'city':city,'state':state,'address':address,'zip_code':zip_code,'contact_number':contact_number},
+			success: function(res)
+			{
+				console.log(res);
+				//window.location.href = "/products/";
+				$.ajax({
+					url: "/orders/startOrderExistCompany/",
+					type: 'POST',
+					beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+					data: {'company_id':res.id},
+					success: function(res)
+					{
+						console.log(res);
+						window.location.href = "/products/";
+					}
+			   });
+			}
+	   });
+   }
+   else{
+		$('#spanError').html('Please Enter all the fields.');
+   }
+}
+
+	
+ </script>
+  </body>
+</html>
