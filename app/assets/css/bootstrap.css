@@ -192,7 +192,7 @@ optgroup {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-  color: #fff;
+  color: #000;
 }
 td,
 th {
@@ -2453,7 +2453,7 @@ table th[class*="col-"] {
 }
 @media screen and (max-width: 767px) {
   .table-responsive {
-    width: 100%;
+    /*width: 100%;*/
     margin-bottom: 15px;
     overflow-y: hidden;
     -ms-overflow-style: -ms-autohiding-scrollbar;
